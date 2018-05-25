@@ -2,6 +2,7 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.WEEKS;
 
 public class DurationInfo {
 
@@ -30,6 +31,6 @@ public class DurationInfo {
     }
 
     public long getCompleteWeeksBetweenDateTimes() {
-        return 0;
+        return getUnitsBetweenDateTimes(WEEKS);
     }
 }

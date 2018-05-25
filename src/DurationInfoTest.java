@@ -1,3 +1,7 @@
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -7,17 +11,17 @@ class DurationInfoTest {
 
     private DurationInfo durationInfo;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         durationInfo = new DurationInfo();
     }
 
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
         durationInfo = null;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getDaysBetweenDateTimes() {
         // create date times for january 1 and february 1 at noon
         OffsetDateTime january1st = OffsetDateTime.of(2018, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC);
@@ -53,7 +57,7 @@ class DurationInfoTest {
         assertEquals(1, days);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getWeekdaysBetweenDateTimes() {
         // create date times for january 1 and february 1 at noon
         OffsetDateTime january1st = OffsetDateTime.of(2018, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC);
@@ -94,7 +98,7 @@ class DurationInfoTest {
         assertEquals(15, weekdays);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getCompleteWeeksBetweenDateTimes() {
         // create date times for january 1 and february 1 at noon
         OffsetDateTime january1st = OffsetDateTime.of(2018, 1, 1, 12, 0, 0, 0, ZoneOffset.UTC);

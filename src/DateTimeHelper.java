@@ -3,6 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
+import static java.time.temporal.ChronoField.OFFSET_SECONDS;
+
 public class DateTimeHelper {
 
     private static DateTimeFormatter dateTimeFormatter;
@@ -11,9 +13,10 @@ public class DateTimeHelper {
     static {
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
         dateTimeFormatter = builder.append(DateTimeFormatter.ISO_LOCAL_DATE_TIME).
-                optionalStart().
-                appendOffset("+HH:MM:SS", "00:00:00").
+                optionalStart(). // offset is optional
+                appendOffset("+HH:MM:SS", "+00:00:00").
                 optionalEnd().
+                parseDefaulting(OFFSET_SECONDS, 0). // if user did not enter offset, default to 0 (UTC)
                 toFormatter();
     }
 
@@ -43,5 +46,9 @@ public class DateTimeHelper {
         } else {
             return new OffsetDateTime[] {dateTime1, dateTime2};
         }
+    }
+
+    public static String getFormattedDateTime(OffsetDateTime dateTime) {
+        return dateTimeFormatter.format(dateTime);
     }
 }

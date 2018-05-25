@@ -1,4 +1,7 @@
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DurationInfo {
 
@@ -13,8 +16,13 @@ public class DurationInfo {
         this.endDateTime = endDateTime;
     }
 
+    // method used to return difference between date times in given units
+    public long getUnitsBetweenDateTimes(ChronoUnit units) {
+        return units.between(startDateTime, endDateTime);
+    }
+
     public long getDaysBetweenDateTimes() {
-        return 0;
+        return getUnitsBetweenDateTimes(DAYS);
     }
 
     public long getWeekdaysBetweenDateTimes() {

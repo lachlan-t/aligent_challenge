@@ -1,4 +1,5 @@
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class AligentChallenge {
 
@@ -14,10 +15,6 @@ public class AligentChallenge {
             return;
         }
 
-        for (int i = 0; i < args.length; i++) {
-            System.out.println(args[i]);
-        }
-
         // first two parameters are datetimes
         OffsetDateTime firstDateTime = DateTimeHelper.parseDateTime(args[0]);
         OffsetDateTime secondDateTime = DateTimeHelper.parseDateTime(args[1]);
@@ -29,8 +26,10 @@ public class AligentChallenge {
 
         // ensure date times are ordered
         OffsetDateTime[] dateTimes = DateTimeHelper.orderDateTimes(firstDateTime, secondDateTime);
+
+        ChronoUnit units = null;
         // perform and display results of calculations
-        runCalculations(dateTimes[0], dateTimes[1]);
+        runCalculations(dateTimes[0], dateTimes[1], units);
     }
 
     private static void printUsage() {
@@ -42,8 +41,26 @@ public class AligentChallenge {
         System.out.println("e.g. java AligentChallenge 2018-01-01T12:00:00 2018-01-01T19:00:00+04:00:00 H");
     }
 
-    private static void runCalculations(OffsetDateTime startDateTime, OffsetDateTime endDateTime) {
+    private static void runCalculations(OffsetDateTime startDateTime, OffsetDateTime endDateTime, ChronoUnit units) {
         DurationInfo durationInfo = new DurationInfo();
         durationInfo.setDateTimes(startDateTime, endDateTime);
+
+        System.out.println("Between " + DateTimeHelper.getFormattedDateTime(startDateTime) +
+                " and " + DateTimeHelper.getFormattedDateTime(endDateTime) + ", there are:");
+
+        // get number of days between dates
+        long days = durationInfo.getDaysBetweenDateTimes();
+        System.out.println(days + " Days");
+
+        long weekdays = durationInfo.getWeekdaysBetweenDateTimes();
+        System.out.println(weekdays + " Weekdays");
+
+        long weeks = durationInfo.getCompleteWeeksBetweenDateTimes();
+        System.out.println(weeks + " Complete weeks");
+
+        if (units != null) {
+            long unitsValue = durationInfo.getUnitsBetweenDateTimes(units);
+            System.out.println(unitsValue + " " + units);
+        }
     }
 }

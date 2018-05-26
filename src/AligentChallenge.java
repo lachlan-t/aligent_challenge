@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -47,7 +46,7 @@ public class AligentChallenge {
 
     private static void printUsage() {
         System.out.println("Usage: java AligentChallenge DATETIME DATETIME [CONVERT_TO_UNITS]");
-        System.out.println(" - DATETIME : Date time in following format: YYYY-MM-DDTHH:mm:SS[OFFSET]");
+        System.out.println(" - DATETIME : Date time in following format: YYYY-MM-DDTHH:mm[:SS][OFFSET]");
         System.out.println(" - OFFSET : Timezone offset in format: +HH:mm:SS");
         System.out.println(" - CONVERT_TO_UNITS : Additional time unit to calculate, S/M/H/Y -> Seconds/Minutes/Hours/Years");
         System.out.println();
@@ -65,7 +64,7 @@ public class AligentChallenge {
         long days = durationInfo.getDaysBetweenDateTimes();
         System.out.print(days + " Complete Days");
         if (units != null) {
-            long value = getConvertedValue(days, DAYS, units);
+            long value = DateTimeHelper.getConvertedValue(days, DAYS, units);
             System.out.print("(" + value + " " + units + ")");
         }
         System.out.println();
@@ -74,7 +73,7 @@ public class AligentChallenge {
         long weekdays = durationInfo.getWeekdaysBetweenDateTimes();
         System.out.print(weekdays + " Complete Weekdays");
         if (units != null) {
-            long value = getConvertedValue(weekdays, DAYS, units);
+            long value = DateTimeHelper.getConvertedValue(weekdays, DAYS, units);
             System.out.print("(" + value + " " + units + ")");
         }
         System.out.println();
@@ -83,7 +82,7 @@ public class AligentChallenge {
         long weeks = durationInfo.getCompleteWeeksBetweenDateTimes();
         System.out.print(weeks + " Complete weeks");
         if (units != null) {
-            long value = getConvertedValue(weeks, WEEKS, units);
+            long value = DateTimeHelper.getConvertedValue(weeks, WEEKS, units);
             System.out.print("(" + value + " " + units + ")");
         }
         System.out.println();
@@ -93,12 +92,6 @@ public class AligentChallenge {
             long unitsValue = durationInfo.getUnitsBetweenDateTimes(units);
             System.out.println(unitsValue + " " + units);
         }
-    }
-
-    private static long getConvertedValue(long value, ChronoUnit baseUnit, ChronoUnit convertedUnit) {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime future = now.plus(value, baseUnit);
-        return convertedUnit.between(now, future);
     }
 
     // determine correct ChronoUnit object to use for conversions

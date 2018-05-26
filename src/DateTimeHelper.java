@@ -1,11 +1,13 @@
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import static java.time.temporal.ChronoField.OFFSET_SECONDS;
 
-public class DateTimeHelper {
+class DateTimeHelper {
 
     private static DateTimeFormatter dateTimeFormatter;
 
@@ -25,7 +27,7 @@ public class DateTimeHelper {
      * @param dateTime Input string to be parsed
      * @return OffsetDateTime object representing the given String, or null, if the String cannot be parsed
      */
-    public static OffsetDateTime parseDateTime(String dateTime) {
+    static OffsetDateTime parseDateTime(String dateTime) {
         try {
             return dateTimeFormatter.parse(dateTime, OffsetDateTime::from);
         } catch (DateTimeParseException e) {
@@ -40,7 +42,7 @@ public class DateTimeHelper {
      * @param dateTime2 Second date time input parameter
      * @return Array of OffsetDateTime objects ordered from earliest to latest
      */
-    public static OffsetDateTime[] orderDateTimes(OffsetDateTime dateTime1, OffsetDateTime dateTime2) {
+    static OffsetDateTime[] orderDateTimes(OffsetDateTime dateTime1, OffsetDateTime dateTime2) {
         if (dateTime1.isAfter(dateTime2)) {
             return new OffsetDateTime[] {dateTime2, dateTime1};
         } else {
@@ -48,7 +50,20 @@ public class DateTimeHelper {
         }
     }
 
-    public static String getFormattedDateTime(OffsetDateTime dateTime) {
+    /**
+     * Converts between two time units (e.g. 1 Hour -> 3600 Seconds)
+     * @param value Original value in the base time unit
+     * @param baseUnit Original time unit
+     * @param convertedUnit Time unit to convert to.
+     * @return Converted value in the new time unit.
+     */
+    static long getConvertedValue(long value, ChronoUnit baseUnit, ChronoUnit convertedUnit) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime future = now.plus(value, baseUnit);
+        return convertedUnit.between(now, future);
+    }
+
+    static String getFormattedDateTime(OffsetDateTime dateTime) {
         return dateTimeFormatter.format(dateTime);
     }
 }

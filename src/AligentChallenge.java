@@ -45,12 +45,12 @@ public class AligentChallenge {
     }
 
     private static void printUsage() {
-        System.out.println("Usage: java AligentChallenge DATETIME DATETIME [CONVERT_TO_UNITS]");
+        System.out.println("Usage: java -jar AligentChallenge.jar DATETIME DATETIME [CONVERT_TO_UNITS]");
         System.out.println(" - DATETIME : Date time in following format: YYYY-MM-DDTHH:mm[:SS][OFFSET]");
         System.out.println(" - OFFSET : Timezone offset in format: +HH:mm:SS");
         System.out.println(" - CONVERT_TO_UNITS : Additional time unit to calculate, S/M/H/Y -> Seconds/Minutes/Hours/Years");
         System.out.println();
-        System.out.println("e.g. java AligentChallenge 2018-01-01T12:00:00 2018-01-01T19:00:00+04:00:00 H");
+        System.out.println("e.g. java -jar AligentChallenge.jar 2018-01-01T12:00:00 2018-01-01T19:00:00+04:00:00 H");
     }
 
     private static void runCalculations(OffsetDateTime startDateTime, OffsetDateTime endDateTime, ChronoUnit units) {

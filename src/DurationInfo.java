@@ -6,30 +6,30 @@ import java.time.temporal.TemporalAdjusters;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.WEEKS;
 
-public class DurationInfo {
+class DurationInfo {
 
     private OffsetDateTime startDateTime;
     private OffsetDateTime endDateTime;
 
-    public void setStartDateTime(OffsetDateTime startDateTime) {
+    void setStartDateTime(OffsetDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public void setEndDateTime(OffsetDateTime endDateTime) {
+    void setEndDateTime(OffsetDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 
-    public void setDateTimes(OffsetDateTime startDateTime, OffsetDateTime endDateTime) {
+    void setDateTimes(OffsetDateTime startDateTime, OffsetDateTime endDateTime) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
     // method used to return difference between date times in given units
-    public long getUnitsBetweenDateTimes(ChronoUnit units) {
+    long getUnitsBetweenDateTimes(ChronoUnit units) {
         return units.between(startDateTime, endDateTime);
     }
 
-    public long getDaysBetweenDateTimes() {
+    long getDaysBetweenDateTimes() {
         return getUnitsBetweenDateTimes(DAYS);
     }
 
@@ -48,7 +48,7 @@ public class DurationInfo {
      * Then the number of weekdays will be 3 (number of whole days between Tuesday, 10am and Saturday, 12am).
      * @return The number of weekdays between start and end date times.
      */
-    public long getWeekdaysBetweenDateTimes() {
+    long getWeekdaysBetweenDateTimes() {
         DayOfWeek startDay = startDateTime.getDayOfWeek();
         DayOfWeek endDay = endDateTime.getDayOfWeek();
 
@@ -86,7 +86,7 @@ public class DurationInfo {
         return weekdays;
     }
 
-    public long getCompleteWeeksBetweenDateTimes() {
+    long getCompleteWeeksBetweenDateTimes() {
         return getUnitsBetweenDateTimes(WEEKS);
     }
 }
